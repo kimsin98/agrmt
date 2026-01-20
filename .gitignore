@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# Distribution / packaging
+*.egg-info/
+
+# Unit test
+.pytest_cache/
+
+# Dev environments
+.ipynb_checkpoints
+.vscode/

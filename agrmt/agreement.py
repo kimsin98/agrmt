@@ -1,5 +1,5 @@
 """
-Python port of the R agreement() function.
+Python port of the R argmt package's agreement function.
 
 Calculates agreement A for frequency vectors based on the algorithm
 described in van der Eijk (2001).
@@ -78,9 +78,9 @@ def agreement(v: np.ndarray) -> float:
 
     Parameters
     ----------
-    v : array_like
-        Frequency vector (counts per category). Must have at least 3 elements
-        and contain no negative values.
+    v : array_like of int
+        Frequency vector (integer counts per category). Must have at least
+        3 elements and contain no negative values.
 
     Returns
     -------
@@ -107,13 +107,18 @@ def agreement(v: np.ndarray) -> float:
     >>> agreement([50, 0, 0, 0, 50])  # Bimodal disagreement
     -1.0
     """
-    v = np.asarray(v, dtype=float)
+    v = np.asarray(v)
 
     if len(v) < 3:
         raise ValueError("Length of vector < 3, agreement A is not defined.")
 
+    if not np.issubdtype(v.dtype, np.integer):
+        raise ValueError("Frequency vector must contain integers.")
+
     if np.min(v) < 0:
         raise ValueError("Negative values found in frequency vector.")
+
+    v = v.astype(float)  # convert for arithmetic
 
     aa = 0.0       # overall agreement A
     k = len(v)     # number of categories
@@ -138,9 +143,3 @@ def agreement(v: np.ndarray) -> float:
         r = r - layer          # new remainder
 
     return aa
-
-
-if __name__ == "__main__":
-    # Quick test with the example from the R code
-    test = np.array([30, 40, 210, 130, 530, 50, 10])
-    print(f"agreement({test}) = {agreement(test)}")

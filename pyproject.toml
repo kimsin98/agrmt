@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agrmt"
+version = "0.1.0"
+description = "Port of van der Eijk agreement from R agrmt to Python"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+dependencies = ["numpy"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Source" = "https://github.com/kimsin98/agrmt"
